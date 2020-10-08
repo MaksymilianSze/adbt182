@@ -5,6 +5,8 @@ float maxvalY = 1.5;
 float angle = 0;
 float di,dj;
 int xPixel,yPixel;
+float a,b;
+PImage canvas;
 
 
 
@@ -15,14 +17,18 @@ void setup(){
   size(500,500);
   pixelDensity(1);
   colorMode(HSB, 360);
+  
+  canvas = createImage(width, height, RGB);
 
 }
 
 
 void draw() {
   
+   
+  image(canvas,0,0);
   float maxLoops = 100;
-  loadPixels();
+  canvas.loadPixels();
 
   
   float equationOneOriginal; 
@@ -30,16 +36,12 @@ void draw() {
 
 
   
-
   
-
-  
-  
-  for (xPixel = 0; xPixel < width ; xPixel++) {
-    for (yPixel = 0; yPixel < height ; yPixel++) {
+  for (xPixel = 0; xPixel < canvas.width ; xPixel++) {
+    for (yPixel = 0; yPixel < canvas.height ; yPixel++) {
       
-      float a = map(xPixel+di, 0,width, minvalX, maxvalX);
-      float b = map(yPixel+dj, 0,height, minvalY, maxvalY);
+      a = map(xPixel, 0,canvas.width, minvalX, maxvalX);
+      b = map(yPixel, 0,canvas.height, minvalY, maxvalY);
       
       equationOneOriginal = a;
       equationTwoOriginal = b;
@@ -65,18 +67,18 @@ void draw() {
       
       if (n == maxLoops) {
       
-        pixels[xPixel+yPixel*width] = color(0);
+        canvas.pixels[xPixel+yPixel*canvas.width] = color(0); //If it reaches the max loops then it is not coloured 
       
       }
       else {
-        pixels[xPixel+yPixel*width] = color(n-(int)(n/360)*n, 360, (int)map(n*6, 1, maxLoops, 0, 360));
+        canvas.pixels[xPixel+yPixel*canvas.width] = color(n-(int)(n/360)*n, 360, (int)map(n*6, 1, maxLoops, 0, 360)); //If i doesnt reach max loops then it is coloured
       
       }
       
     }
   }
   
-  updatePixels();
+  canvas.updatePixels();
   
 }
 
@@ -84,18 +86,38 @@ void mousePressed()
 {
   
   if (mouseButton == LEFT) {
-    di = di + mouseX - int(width/2);
-    dj = dj + mouseY - int(height/2);
+    //di = di + mouseX - int(width/2);
+    //dj = dj + mouseY - int(height/2);
     
-    minvalX += 0.1;
-    maxvalX -= 0.1;
+    //minvalX += 0.1;
+    //maxvalX -= 0.1;
     
-    minvalY += 0.1;
-    maxvalY -= 0.1;
+    //minvalY += 0.1;
+    //maxvalY -= 0.1;
     
+    //float cx = (minvalX + maxvalX)/2;
+    //float cy = (minvalY + maxvalY)/2;
     
+    //a = cx + (xPixel/width - 1.5)*maxvalX;
+
+    //b = cy + (yPixel/width - 1.5)*maxvalY;
+    
+   float zoomDistance = abs( (maxvalX*0.99)/2 );
+   float mx = map(mouseX, 0, canvas.width, minvalX, maxvalX);
+   float my = map(mouseY, 0, canvas.height, minvalY, maxvalY);
    
-    
+   println(minvalX, maxvalX);
+   println(minvalY, maxvalY);
+   
+   minvalX = mx - zoomDistance;
+   minvalY = my - zoomDistance;
+   maxvalX = mx + zoomDistance;
+   maxvalY = my + zoomDistance;
+   
+   println(" ");
+   
+   println(minvalX, maxvalX);
+   println(minvalY, maxvalY);
   }
   
   
