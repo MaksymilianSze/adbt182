@@ -21,7 +21,6 @@ void setup(){
 
 void draw() {
   
-  scale(zoom);
   float maxLoops = 100;
   loadPixels();
 
