@@ -50,7 +50,7 @@ void draw() {
         a = equationOne  + equationOneOriginal;
         b = equationTwo  + equationTwoOriginal;
         
-        if (abs(a+b) > 16) {
+        if (abs(a+b) > 16) { //Testing to see if it ends towards infinity. If the number is greater that 1 it is likely it tends to infinity.
           break;
         }
         
@@ -58,13 +58,13 @@ void draw() {
       }
       
       
-      if (n == maxLoops) { //Testing to see if it ends towards infinity 
+      if (n == maxLoops) { //Testing to see if it ends towards infinity by checking if it reached the max loops. 
       
-        canvas.pixels[xPixel+yPixel*canvas.width] = color(0); //If it reaches the max loops (tends to infinity) then it is not coloured 
+        canvas.pixels[xPixel+yPixel*canvas.width] = color(0); //If it reaches the max loops (doesn't tend to infinity) then it is coloured black as it is in the set.
       
       }
       else {
-        canvas.pixels[xPixel+yPixel*canvas.width] = color(n-(int)(n/360)*n, 360, (int)map(n*6, 1, maxLoops, 0, 360)); //If i doesnt reach max loops (doesn't tend to infinity) then it is coloured
+        canvas.pixels[xPixel+yPixel*canvas.width] = color(n-(int)(n/360)*n, 360, (int)map(n*6, 1, maxLoops, 0, 360)); //If i doesnt reach max loops (tends to infinity) then it is coloured
       
       }
       
