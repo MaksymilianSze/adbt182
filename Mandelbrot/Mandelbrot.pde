@@ -50,7 +50,7 @@ void draw() {
         a = equationOne  + equationOneOriginal;
         b = equationTwo  + equationTwoOriginal;
         
-        if (abs(a+b) > 16) { //Testing to see if it ends towards infinity. If the number is greater that 1 it is likely it tends to infinity.
+        if (abs(a+b) > 16) { //Testing to see if it ends towards infinity. If the number is greater that 16 it is likely it tends to infinity.
           break;
         }
         
